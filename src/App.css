@@ -11,9 +11,8 @@ body{
 }
 .App{
   display: flex;
-
   height: 50vh;
-  width: auto;
+  width: 36vh;
   background-color: black;
   border-radius: 10px;
   box-shadow: 5px 5px 6px 0px rgb(0, 0, 0, .75);;
@@ -22,7 +21,7 @@ body{
 .input{
   display: flex;
   height: 10vh;
-  font-size: 3rem;
+  font-size: 2rem;
   color:white;
   align-items: flex-end;
   direction: rtl;

@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import operations from './config'
+import operations from './config';
+import { roundOf } from './util';
 
 
 function App() {
@@ -42,16 +43,16 @@ function App() {
     let result;
     switch (operator) {
       case operations.divide:
-        result = String(parseInt(lastState) / parseInt(currentState));
+        result = String(parseFloat(lastState) / parseFloat(currentState));
         break;
       case operations.multiply:
-        result = String(parseInt(lastState) * parseInt(currentState));
+        result = String(parseFloat(lastState) * parseFloat(currentState));
         break;
       case operations.subtract:
-        result = String(parseInt(lastState) - parseInt(currentState));
+        result = String(parseFloat(lastState) - parseFloat(currentState));
         break;
       case operations.add:
-        result = String(parseInt(lastState) + parseInt(currentState));
+        result = String(parseFloat(lastState) + parseFloat(currentState));
         break;
       default: return;
     }
@@ -71,10 +72,11 @@ function App() {
     setDisableOperator(true);
   }
 
+
   return (
     <div className="App">
       <div className="container">
-        <div className="input">{(input !== "" || input === "0" ? input : lastState) || 0}</div>
+        <div className="input">{(input !== "" || input === "0" ? input : roundOf(lastState)) || 0}</div>
         <div className="row">
           <button className="btn btn-grey" onClick={clear} disabled={disableClear}>AC</button>
           <button className="btn btn-grey" disabled={true}>%</button>
