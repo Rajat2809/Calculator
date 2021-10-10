@@ -37,20 +37,7 @@ function App() {
     setDisableOperator(false);
     setDisableClear(false);
     if (lastState) setDisableEqual(false);
-    console.log(checkWidth());
 
-  }
-
-  function checkWidth() {
-    let element = document.querySelector('.container');
-
-    return element.scrollWidth > vw(36);
-  }
-
-
-  function vw(v) {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    return (v * w) / 100;
   }
   function calculate(opr) {
     let result;
