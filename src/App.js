@@ -11,13 +11,16 @@ function App() {
   const [operator, setOperator] = useState("");
   const [disableOperator, setDisableOperator] = useState(true);
   const [disableEqual, setDisableEqual] = useState(true);
+  const [disableClear, setDisableClear] = useState(true);
 
 
   function numPress(num) {
     if (currentState === "" && num === '0') return;
     currentState ? setCurrentState(cur => cur + num) : setCurrentState(num);
     setDisableOperator(false);
+    setDisableClear(false);
     if (lastState) setDisableEqual(false);
+
   }
 
   useEffect(() => {
@@ -58,12 +61,22 @@ function App() {
     if (opr === operations.equal) setDisableOperator(true)
   }
 
+  function clear() {
+    setInput("");
+    setLaststate("");
+    setCurrentState("");
+    setOperator("");
+    setDisableClear(true);
+    setDisableEqual(true);
+    setDisableOperator(true);
+  }
+
   return (
     <div className="App">
       <div className="container">
-        <div className="input">{input !== "" || input === "0" ? input : lastState}</div>
+        <div className="input">{(input !== "" || input === "0" ? input : lastState) || 0}</div>
         <div className="row">
-          <button className="btn btn-grey" disabled={disableOperator}>AC</button>
+          <button className="btn btn-grey" onClick={clear} disabled={disableClear}>AC</button>
           <button className="btn btn-grey" disabled={true}>%</button>
           <button className="btn btn-grey" disabled={true}>+/-</button>
           <button className="btn btn-orange" onClick={() => operatorPress(operations.divide)} disabled={disableOperator}>÷</button>
