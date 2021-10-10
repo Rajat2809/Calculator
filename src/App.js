@@ -13,19 +13,11 @@ function App() {
   const [disableOperator, setDisableOperator] = useState(true);
   const [disableEqual, setDisableEqual] = useState(true);
   const [disableClear, setDisableClear] = useState(true);
-
-
-  function numPress(num) {
-    if (currentState === "" && num === '0') return;
-    currentState ? setCurrentState(cur => cur + num) : setCurrentState(num);
-    setDisableOperator(false);
-    setDisableClear(false);
-    if (lastState) setDisableEqual(false);
-
-  }
-
   useEffect(() => {
-    setInput(currentState);
+    if (Number.MAX_SAFE_INTEGER < currentState)
+      setInput("Error");
+    else
+      setInput(currentState);
   }, [currentState])
 
   function operatorPress(opr) {
@@ -39,6 +31,27 @@ function App() {
 
   }
 
+  function numPress(num) {
+    if (currentState === "" && num === '0') return;
+    currentState ? setCurrentState(cur => cur + num) : setCurrentState(num);
+    setDisableOperator(false);
+    setDisableClear(false);
+    if (lastState) setDisableEqual(false);
+    console.log(checkWidth());
+
+  }
+
+  function checkWidth() {
+    let element = document.querySelector('.container');
+
+    return element.scrollWidth > vw(36);
+  }
+
+
+  function vw(v) {
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    return (v * w) / 100;
+  }
   function calculate(opr) {
     let result;
     switch (operator) {
@@ -76,6 +89,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+
         <div className="input">{(input !== "" || input === "0" ? input : roundOf(lastState)) || 0}</div>
         <div className="row">
           <button className="btn btn-grey" onClick={clear} disabled={disableClear}>AC</button>
